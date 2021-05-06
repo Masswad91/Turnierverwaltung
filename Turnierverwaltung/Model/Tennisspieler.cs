@@ -23,7 +23,7 @@ namespace Turnierverwaltung
         {
             Mitwelcherhand = "linke hand";
         }
-        public Tennisspieler(int id, string name, string value) : base(id, name)
+        public Tennisspieler(int id, string name, string adresse, string type, string value) : base(id, name, adresse, type)
         {
             Mitwelcherhand = value;
         }

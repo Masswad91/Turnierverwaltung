@@ -22,6 +22,10 @@ namespace Turnierverwaltung.View
             Bearbeitungsbutten.Visible = true;
             Personhinzufeugen.Visible = false;
             idLabel.Visible = true;
+            Label1.Visible = true;
+            Label2.Visible = true;
+            Adresse.Visible = true;
+            Type.Visible = true;
         }
 
         protected void Hinzufeugen_Click1(object sender, EventArgs e)
@@ -30,6 +34,10 @@ namespace Turnierverwaltung.View
             Personhinzufeugen.Visible = true;
             Bearbeitungsbutten.Visible = false;
             idLabel.Visible = true;
+            Label1.Visible = true;
+            Label2.Visible = true;
+            Adresse.Visible = true;
+            Type.Visible = true;
         }
 
         public void ZeigeAlleDaten()
@@ -45,7 +53,7 @@ namespace Turnierverwaltung.View
 
         protected void Personhinzufeugen_Click(object sender, EventArgs e)
         {
-            Verwalter.insert_teilnehmer(Name.Text);
+            Verwalter.insert_teilnehmer(Name.Text, Adresse.Text, Type.Text);
             Response.Redirect(Request.RawUrl);
         }
 
@@ -64,7 +72,6 @@ namespace Turnierverwaltung.View
             }
 
             ZeigeAlleDaten();
-
         }
 
         protected void Personbearbeiten_Click(object sender, EventArgs e)
@@ -76,7 +83,7 @@ namespace Turnierverwaltung.View
                 if (chkbearbeiten.Checked)
                 {
                     int teilnehmerID = Convert.ToInt32(row.Cells[1].Text);
-                    Verwalter.EinenTeilnehmerBearbeiten(teilnehmerID, Name.Text);
+                    Verwalter.EinenTeilnehmerBearbeiten(teilnehmerID, Name.Text, Adresse.Text, Type.Text);
                 }
 
                 ZeigeAlleDaten();

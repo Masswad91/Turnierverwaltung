@@ -23,7 +23,12 @@ namespace Turnierverwaltung
         #region Konstruktor
         public DB()
         {
-            Connectionstring = "Data Source=" + "C:/Users/Moham/Desktop/Entwicklung/turnierverwaltung.db3;" + "Version=3;";
+            Connectionstring = "Data Source=" + "C:/Users/Moham/Desktop/Entwicklung/Turnierverwaltung_db.db3;" + "Version=3;";
+            Sqlstring = "";
+        }
+        public DB(string db_path)
+        {
+            Connectionstring = db_path;
             Sqlstring = "";
         }
         #endregion

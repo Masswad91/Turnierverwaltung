@@ -20,7 +20,7 @@ namespace Turnierverwaltung
         {
             Role = "";
         }
-        public Organisator(int id, string name, string value ) : base(id, name)
+        public Organisator(int id, string name, string adresse, string type, string value ) : base(id, name, adresse, type)
         {
             Role = value;
         }
