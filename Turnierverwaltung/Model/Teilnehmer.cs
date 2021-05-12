@@ -43,6 +43,7 @@ namespace Turnierverwaltung
 
         // Polymorphie 2. Grades Späte Bindung 
         public abstract void Insert_into_DB();
+
         #endregion
 
     }

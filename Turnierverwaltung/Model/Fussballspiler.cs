@@ -32,24 +32,42 @@ namespace Turnierverwaltung
         #region Worker 
         public override void Insert_into_DB()
         {
+            Random rnd = new Random(DateTime.Now.Ticks.GetHashCode());
+            int id = rnd.Next(1, 1000000);
+            long lastID;
 
-            Database.Sqlstring = "insert into fussballspieler (id, fussstearke) values (1,20);";
+            Database.Sqlstring = "insert into Teilnehmer (teilnehmer_id, name) values (@teilnehmerID, @teilnehmerName);";
             SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@teilnehmerID", id);
+            command.Parameters.AddWithValue("@teilnehmerName", Name);
 
             int anzhal = 0;
             try
             {
                 anzhal = command.ExecuteNonQuery();
+                lastID = Database.Conn.LastInsertRowId;
             }
             catch (Exception)
             {
                 return;
             }
 
-            if (anzhal > 0)
+
+            Database.Sqlstring = "insert into fussballspieler (fussballspieler_id, teilnehmer_id, fussstearke) values (@fussballspieler_id, @teilnehmer_id, @fussstearke);";
+            command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@fussballspieler_id", id);
+            command.Parameters.AddWithValue("@teilnehmer_id", lastID);
+            command.Parameters.AddWithValue("@fussstearke", Fussstearke);
+
+            try
             {
-                Console.WriteLine("Letzte id " + command.Connection.LastInsertRowId);
+               command.ExecuteNonQuery();
             }
+            catch (Exception)
+            {
+                return;
+            }
+
             Database.Conn.Close();
 
         }

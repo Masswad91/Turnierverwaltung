@@ -103,11 +103,11 @@ namespace Turnierverwaltung
 
         public void insert_teilnehmer(string teilnehmerName)
         {
-
             Database.Connect();
 
             Random rnd = new Random(DateTime.Now.Ticks.GetHashCode());
             int teilnehmerID = rnd.Next(1, 10000);
+            long lastID;
 
             Database.Sqlstring = "insert into Teilnehmer (teilnehmer_id, name) values (@teilnehmerID, @teilnehmerName);";
             SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
@@ -118,10 +118,16 @@ namespace Turnierverwaltung
             try
             {
                 anzhal = command.ExecuteNonQuery();
+                lastID = Database.Conn.LastInsertRowId;
             }
             catch (Exception)
             {
                 return;
+            }
+
+            foreach (Teilnehmer objekt in Teilnehmer)
+            {
+                objekt.Insert_into_DB();
             }
             Database.Conn.Close();
         }
