@@ -10,8 +10,6 @@ namespace Turnierverwaltung
         #region Eigenschaften 
         private int _id;
         private string _name;
-        private string _adresse;
-        private string _type; 
 
 
 
@@ -19,8 +17,6 @@ namespace Turnierverwaltung
         #region Accesssoren
         public int Id { get => _id; set => _id = value; }
         public string Name { get => _name; set => _name = value; }
-        public string Adresse { get => _adresse; set => _adresse = value; }
-        public string Type { get => _type; set => _type = value; }
         #endregion
         #region Konstruktoren
 
@@ -28,16 +24,13 @@ namespace Turnierverwaltung
         {
             Id = -1;
             Name = "";
-            Adresse = "";
-            Type = "";
         }
 
-        public Teilnehmer(int value1, string value2, string value3, string value4)
+        public Teilnehmer(int value1, string value2)
         {
             Id = value1;
             Name = value2;
-            Adresse = value3;
-            Type = value4;
+
         }
         #endregion
 

@@ -25,14 +25,6 @@
             <br />
             <asp:TextBox ID="Name" runat="server" Visible="false"></asp:TextBox>
             <br />
-            <asp:Label ID="Label1" runat="server" Text="Adresse" Visible="false"></asp:Label>
-            <br />
-            <asp:TextBox ID="Adresse" runat="server" Visible="false"></asp:TextBox>
-            <br />
-            <asp:Label ID="Label2" runat="server" Text="Type" Visible="false"></asp:Label>
-            <br />
-            <asp:TextBox ID="Type" runat="server" Visible="false"></asp:TextBox>
-            <br />
             <asp:Button ID="Personhinzufeugen" runat="server" Text="Submit" Visible="false" OnClick="Personhinzufeugen_Click" />
             <asp:Button ID="Bearbeitungsbutten" runat="server" Text="Bearbeiten" Visible="false" OnClick="Personbearbeiten_Click" />
         </div>
@@ -46,8 +38,6 @@
                 </asp:TemplateField>
                 <asp:BoundField DataField="teilnehmer_id" HeaderText="ID" />
                 <asp:BoundField DataField="name" HeaderText="Name" />
-                <asp:BoundField DataField="adresse" HeaderText="Adresse" />
-                <asp:BoundField DataField="type" HeaderText="Type" />
             </Columns>
         </asp:GridView>
 

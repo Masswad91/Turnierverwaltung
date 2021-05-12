@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Data.SQLite;
 
 namespace Turnierverwaltung
@@ -66,17 +65,15 @@ namespace Turnierverwaltung
 
             Database.Conn.Close();
         }
-        public void EinenTeilnehmerBearbeiten(int teilnehmer_id, string teilnehmer_name, string teilnehmerAdresse, string teilnehmerType)
+        public void EinenTeilnehmerBearbeiten(int teilnehmer_id, string teilnehmer_name)
         {
             //Personendaten aus der DB laden
             Database.Connect();
 
-            Database.Sqlstring = "update Teilnehmer set name = @teilnehmer_name, adresse = @teilnehmer_Adresse, type = @teilnehmer_type where teilnehmer_id = @teilnehmer_id";
+            Database.Sqlstring = "update Teilnehmer set name = @teilnehmer_name where teilnehmer_id = @teilnehmer_id";
             SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
             command.Parameters.AddWithValue("@teilnehmer_id", teilnehmer_id);
             command.Parameters.AddWithValue("@teilnehmer_name", teilnehmer_name);
-            command.Parameters.AddWithValue("@teilnehmer_adresse", teilnehmerAdresse);
-            command.Parameters.AddWithValue("@teilnehmer_type", teilnehmerType);
 
             try
             {
@@ -104,7 +101,7 @@ namespace Turnierverwaltung
         }
         */
 
-        public void insert_teilnehmer(string teilnehmerName, string teilnehmerAdresse, string teilnehmerType)
+        public void insert_teilnehmer(string teilnehmerName)
         {
 
             Database.Connect();
@@ -112,12 +109,10 @@ namespace Turnierverwaltung
             Random rnd = new Random(DateTime.Now.Ticks.GetHashCode());
             int teilnehmerID = rnd.Next(1, 10000);
 
-            Database.Sqlstring = "insert into Teilnehmer (teilnehmer_id, name, adresse, type) values (@teilnehmerID, @teilnehmerName, @teilnehmerAdresse, @teilnehmerType);";
+            Database.Sqlstring = "insert into Teilnehmer (teilnehmer_id, name) values (@teilnehmerID, @teilnehmerName);";
             SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
             command.Parameters.AddWithValue("@teilnehmerID", teilnehmerID);
             command.Parameters.AddWithValue("@teilnehmerName", teilnehmerName);
-            command.Parameters.AddWithValue("teilnehmerAdresse", teilnehmerAdresse);
-            command.Parameters.AddWithValue("teilnehmerType", teilnehmerType);
 
             int anzhal = 0;
             try

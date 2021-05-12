@@ -20,7 +20,7 @@ namespace Turnierverwaltung
             Handstearke = 0;
         }
 
-        public Handballspieler(int id, string name, string adresse, string type, int value) : base(id, name, adresse, type)
+        public Handballspieler(int id, string name, int value) : base(id, name)
         {
             Handstearke = value;
         }

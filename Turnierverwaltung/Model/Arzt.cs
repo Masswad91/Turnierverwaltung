@@ -20,7 +20,7 @@ namespace Turnierverwaltung
         {
             Bezeichnung = "";
         }
-        public Arzt(int id, string name, string adresse, string type,  string value) : base(id, name, adresse, type)
+        public Arzt(int id, string name,  string value) : base(id, name)
         {
 
             Bezeichnung = value;

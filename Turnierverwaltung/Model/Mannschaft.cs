@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Turnierverwaltung.Model
 {
-    public class Mannschaft
+    public class Mannschaft : Teilnehmer
     {
         #region Eigenschaften
         private string _mannschaftname;
@@ -21,14 +21,17 @@ namespace Turnierverwaltung.Model
             Mannschaftname = "";
         }
 
-        public Mannschaft(string value)
+        public Mannschaft(int id, string name, string value) : base(id, name)
         {
             Mannschaftname = value;
         }
         #endregion
 
         #region Worker 
-
+        public override void Insert_into_DB()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

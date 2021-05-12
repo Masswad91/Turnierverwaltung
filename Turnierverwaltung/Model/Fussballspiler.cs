@@ -24,7 +24,7 @@ namespace Turnierverwaltung
             Fussstearke = 0;
             Database = new DB();
         }
-        public Fussballspieler(int id, string name,string adresse, string type,  int value) : base(id, name, adresse, type)
+        public Fussballspieler(int id, string name, int value) : base(id, name)
         {
             Fussstearke = value;
         }
