@@ -7,7 +7,7 @@ namespace Turnierverwaltung
 {
     public abstract class Teilnehmer
     {
-        #region Eigenschaften 
+        #region Eigenschaften
         private string _name;
 
 

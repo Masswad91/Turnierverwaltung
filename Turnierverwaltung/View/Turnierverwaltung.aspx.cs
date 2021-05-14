@@ -86,7 +86,6 @@ namespace Turnierverwaltung.View
 
         protected void Hinzufeugen_Arzt(object sender, EventArgs e)
         {
-
             idLabel.Visible = true;
             Name.Visible = true;
             idLabe5.Visible = true;
@@ -95,29 +94,22 @@ namespace Turnierverwaltung.View
 
         protected void Hinzufeugen_Fussballspiele(object sender, EventArgs e)
         {
-            Response.Clear();
             idLabel.Visible = true;
             Name.Visible = true;
             idLabe2.Visible = true;
             Fussstearke.Visible = true;
-
         }
 
         protected void Hinzufeugen_Handballspieler(object sender, EventArgs e)
         {
-            Response.Clear();
             idLabel.Visible = true;
             Name.Visible = true;
             idLabe3.Visible = true;
             Handstearke.Visible = true;
-
-
-
         }
 
         protected void Hinzufeugen_Organisator(object sender, EventArgs e)
         {
-            Response.Clear();
             idLabel.Visible = true;
             Name.Visible = true;
             idLabe4.Visible = true;
@@ -127,7 +119,6 @@ namespace Turnierverwaltung.View
 
         protected void Hinzufeugen_Tennisspieler(object sender, EventArgs e)
         {
-            Response.Clear();
             idLabel.Visible = true;
             Name.Visible = true;
             idLabe6.Visible = true;
@@ -137,21 +128,39 @@ namespace Turnierverwaltung.View
 
         protected void Personhinzufeugen_Click(object sender, EventArgs e)
         {
+
             if (Bezeichnung.Text != "")
             {
                 Verwalter.Teilnehmerliste.Add(new Arzt(Name.Text, Bezeichnung.Text));
                 Verwalter.Datenspeichern();
+                Response.Redirect(Request.RawUrl);
             }
-            else if (Fussstearke.Rows != 0)
+            else if (Fussstearke.Text != "")
             {
-                Verwalter.Teilnehmerliste.Add(new Fussballspieler(Name.Text, Fussstearke.Rows));
+                int spieler_fussstearke = Convert.ToInt32(Fussstearke.Text);
+                Verwalter.Teilnehmerliste.Add(new Fussballspieler(Name.Text, spieler_fussstearke));
                 Verwalter.Datenspeichern();
+                Response.Redirect(Request.RawUrl);
 
             }
             else if (Mit_welcher_Hand.Text != "")
             {
                 Verwalter.Teilnehmerliste.Add(new Tennisspieler(Name.Text, Mit_welcher_Hand.Text));
                 Verwalter.Datenspeichern();
+                Response.Redirect(Request.RawUrl);
+            }
+            else if (Handstearke.Text != "")
+            {
+                int spieler_handtearke = Convert.ToInt32(Handstearke.Text);
+                Verwalter.Teilnehmerliste.Add(new Handballspieler(Name.Text, spieler_handtearke));
+                Verwalter.Datenspeichern();
+                Response.Redirect(Request.RawUrl);
+            }
+            else if (Rolle.Text != "")
+            {
+                Verwalter.Teilnehmerliste.Add(new Organisator(Name.Text, Rolle.Text));
+                Verwalter.Datenspeichern();
+                Response.Redirect(Request.RawUrl);
             }
 
         }

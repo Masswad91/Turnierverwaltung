@@ -25,6 +25,7 @@ namespace Turnierverwaltung
 
         public Handballspieler(string name, int value) : base(name)
         {
+            Database = new DB();
             Handstearke = value;
         }
         #endregion
@@ -32,6 +33,7 @@ namespace Turnierverwaltung
         #region Worker 
         public override void Insert_into_DB()
         {
+            Database.Connect();
             Random rnd = new Random(DateTime.Now.Ticks.GetHashCode());
             int id = rnd.Next(1, 1000000000);
             long lastID;
@@ -41,10 +43,9 @@ namespace Turnierverwaltung
             command.Parameters.AddWithValue("@teilnehmerID", id);
             command.Parameters.AddWithValue("@teilnehmerName", Name);
 
-            int anzhal = 0;
             try
             {
-                anzhal = command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
                 lastID = Database.Conn.LastInsertRowId;
             }
             catch (Exception)
@@ -53,8 +54,10 @@ namespace Turnierverwaltung
             }
 
             int last_id_as_int = Convert.ToInt32(lastID);
+
             int handballspieler_id = rnd.Next(1, 1000000);
-            Database.Sqlstring = "insert into Handballspieler (handballspieler_id, teilnehmer_id, hand_stearke) values (@handballspieler_id, @teilnehmer_id, @hand_stearke);";
+
+            Database.Sqlstring = "insert into Handballspieler (handballspieler_id, teilnehmer_id, handstearke) values (@handballspieler_id, @teilnehmer_id, @hand_stearke);";
             command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
             command.Parameters.AddWithValue("@handballspieler_id", handballspieler_id);
             command.Parameters.AddWithValue("@teilnehmer_id", last_id_as_int);

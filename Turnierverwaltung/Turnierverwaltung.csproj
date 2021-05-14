@@ -181,7 +181,7 @@
     </Compile>
     <Compile Include="Model\Arzt.cs" />
     <Compile Include="Model\DB.cs" />
-    <Compile Include="Model\Fussballspiler.cs" />
+    <Compile Include="Model\Fussballspieler.cs" />
     <Compile Include="Model\Handballspieler.cs" />
     <Compile Include="Model\Organisator.cs" />
     <Compile Include="Model\Teilnehmer.cs" />

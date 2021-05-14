@@ -38,6 +38,7 @@ namespace Turnierverwaltung
         #region Worker 
         public override void Insert_into_DB()
         {
+            Database.Connect();
             Random rnd = new Random(DateTime.Now.Ticks.GetHashCode());
             int id = rnd.Next(1, 1000000);
             long lastID;

@@ -24,7 +24,7 @@ namespace Turnierverwaltung
             Database = new DB();
             Bezeichnung = "";
         }
-        public Arzt(string name,  string value) : base(name)
+        public Arzt(string name, string value) : base(name)
         {
             Database = new DB();
             Bezeichnung = value;
@@ -36,7 +36,7 @@ namespace Turnierverwaltung
         {
             Database.Connect();
             Random rnd = new Random(DateTime.Now.Ticks.GetHashCode());
-            int teilnehmer_id= rnd.Next(1, 1000000);
+            int teilnehmer_id = rnd.Next(1, 1000000);
 
             long lastID;
 
@@ -45,33 +45,36 @@ namespace Turnierverwaltung
             command.Parameters.AddWithValue("@teilnehmerID", teilnehmer_id);
             command.Parameters.AddWithValue("@teilnehmerName", Name);
 
-            int anzhal = 0;
+
             try
             {
-                anzhal = command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
                 lastID = Database.Conn.LastInsertRowId;
             }
             catch (Exception)
             {
+
                 return;
             }
 
-            Console.WriteLine(lastID);
             int last_id_as_int = Convert.ToInt32(lastID);
-
             int arzt_id = rnd.Next(1, 1000000);
+
             Database.Sqlstring = "insert into Arzt (arzt_id, teilnehmer_id, bezeichnung) values (@arzt_id, @teilnehmer_id, @bezeichnung);";
             command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
-            command.Parameters.AddWithValue("@arzt_id,", arzt_id);
+            command.Parameters.AddWithValue("@arzt_id", arzt_id);
             command.Parameters.AddWithValue("@teilnehmer_id", last_id_as_int);
             command.Parameters.AddWithValue("@bezeichnung", Bezeichnung);
 
             try
             {
+
                 command.ExecuteNonQuery();
+
             }
-            catch (Exception)
+            catch (Exception err)
             {
+                System.Diagnostics.Debug.WriteLine("err: " + err);
                 return;
             }
 

@@ -26,12 +26,14 @@ namespace Turnierverwaltung
         }
         public Fussballspieler(string name, int value) : base(name)
         {
+            Database = new DB();
             Fussstearke = value;
         }
         #endregion
         #region Worker 
         public override void Insert_into_DB()
         {
+            Database.Connect();
             Random rnd = new Random(DateTime.Now.Ticks.GetHashCode());
             int id = rnd.Next(1, 1000000);
             long lastID;
@@ -41,21 +43,21 @@ namespace Turnierverwaltung
             command.Parameters.AddWithValue("@teilnehmerID", id);
             command.Parameters.AddWithValue("@teilnehmerName", Name);
 
-            int anzhal = 0;
             try
             {
-                anzhal = command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
                 lastID = Database.Conn.LastInsertRowId;
             }
-            catch (Exception)
+            catch (Exception err)
             {
+                System.Diagnostics.Debug.WriteLine("err: " + err);
                 return;
             }
 
             int last_id_as_int = Convert.ToInt32(lastID);
             int fussballspieler_id = rnd.Next(1, 1000000);
 
-            Database.Sqlstring = "insert into fussballspieler (fussballspieler_id, teilnehmer_id, fussstearke) values (@fussballspieler_id, @teilnehmer_id, @fussstearke);";
+            Database.Sqlstring = "insert into Fussballspieler (fussballspieler_id, teilnehmer_id, fussstearke) values (@fussballspieler_id, @teilnehmer_id, @fussstearke);";
             command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
             command.Parameters.AddWithValue("@fussballspieler_id", fussballspieler_id);
             command.Parameters.AddWithValue("@teilnehmer_id", last_id_as_int);
@@ -65,8 +67,9 @@ namespace Turnierverwaltung
             {
                command.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception err)
             {
+                System.Diagnostics.Debug.WriteLine("err: " + err);
                 return;
             }
 
