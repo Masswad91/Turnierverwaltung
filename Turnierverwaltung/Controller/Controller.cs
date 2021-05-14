@@ -8,13 +8,13 @@ namespace Turnierverwaltung
     {
         #region Eigenschaften 
         private DB _database;
-        private List<Teilnehmer> _teilnehmer;
+        private List<Teilnehmer> _teilnehmerliste;
         #endregion
 
         #region Accesssoren
 
         internal DB Database { get => _database; set => _database = value; }
-        public List<Teilnehmer> Teilnehmer { get => _teilnehmer; set => _teilnehmer = value; }
+        public List<Teilnehmer> Teilnehmerliste { get => _teilnehmerliste; set => _teilnehmerliste = value; }
 
         #endregion
         #region Konstruktoren
@@ -22,7 +22,7 @@ namespace Turnierverwaltung
         {
 
             Database = new DB();
-            Teilnehmer = new List<Teilnehmer>();
+            Teilnehmerliste = new List<Teilnehmer>();
 
         }
         #endregion
@@ -87,49 +87,13 @@ namespace Turnierverwaltung
             Database.Conn.Close();
         }
 
-        /*
+
         public void Datenspeichern()
         {
-            Fussballspieler fussballspieler = new Fussballspieler();
-            fussballspieler.DosomeThing();
-            Teilnehmer.Add(new Fussballspieler());
-
-            foreach (Teilnehmer objekt in Teilnehmer)
+            foreach (Teilnehmer objekt in Teilnehmerliste)
             {
                 objekt.Insert_into_DB();
             }
-        }
-        */
-
-        public void insert_teilnehmer(string teilnehmerName)
-        {
-            Database.Connect();
-
-            Random rnd = new Random(DateTime.Now.Ticks.GetHashCode());
-            int teilnehmerID = rnd.Next(1, 10000);
-            long lastID;
-
-            Database.Sqlstring = "insert into Teilnehmer (teilnehmer_id, name) values (@teilnehmerID, @teilnehmerName);";
-            SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
-            command.Parameters.AddWithValue("@teilnehmerID", teilnehmerID);
-            command.Parameters.AddWithValue("@teilnehmerName", teilnehmerName);
-
-            int anzhal = 0;
-            try
-            {
-                anzhal = command.ExecuteNonQuery();
-                lastID = Database.Conn.LastInsertRowId;
-            }
-            catch (Exception)
-            {
-                return;
-            }
-
-            foreach (Teilnehmer objekt in Teilnehmer)
-            {
-                objekt.Insert_into_DB();
-            }
-            Database.Conn.Close();
         }
         public void Run()
         {

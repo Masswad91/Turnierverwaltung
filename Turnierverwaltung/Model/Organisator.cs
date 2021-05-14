@@ -20,9 +20,10 @@ namespace Turnierverwaltung
         #region Konstruktor
         public Organisator() : base()
         {
+            Database = new DB();
             Role = "";
         }
-        public Organisator(int id, string name, string value ) : base(id, name)
+        public Organisator(string name, string value ) : base(name)
         {
             Role = value;
         }
@@ -51,11 +52,13 @@ namespace Turnierverwaltung
                 return;
             }
 
-
-            Database.Sqlstring = "insert into fussballspieler (organisator_id, teilnehmer_id) values (@organisator_id, @teilnehmer_id);";
+           
+            int last_id_as_int = Convert.ToInt32(lastID);
+            int organisator_id = rnd.Next(1, 1000000);
+            Database.Sqlstring = "insert into Organisator (organisator_id, teilnehmer_id) values (@organisator_id, @teilnehmer_id);";
             command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
-            command.Parameters.AddWithValue("@organisator_id", id);
-            command.Parameters.AddWithValue("@teilnehmer_id", lastID);
+            command.Parameters.AddWithValue("@organisator_id", organisator_id);
+            command.Parameters.AddWithValue("@teilnehmer_id", last_id_as_int);
 
             try
             {

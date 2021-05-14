@@ -24,10 +24,12 @@ namespace Turnierverwaltung
 
         public Tennisspieler() : base()
         {
+            Database = new DB();
             Mitwelcherhand = "linke hand";
         }
-        public Tennisspieler(int id, string name, string value) : base(id, name)
+        public Tennisspieler(string name, string value) : base(name)
         {
+            Database = new DB();
             Mitwelcherhand = value;
         }
 
@@ -56,11 +58,12 @@ namespace Turnierverwaltung
                 return;
             }
 
-
-            Database.Sqlstring = "insert into fussballspieler (tennisspieler_id, teilnehmer_id, welche_hand) values (@tennisspieler_id, @teilnehmer_id, @welche_hand);";
+            int last_id_as_int = Convert.ToInt32(lastID);
+            int tennisspieler_id = rnd.Next(1, 1000000);
+            Database.Sqlstring = "insert into Tennisspieler (tennisspieler_id, teilnehmer_id, welche_hand) values (@tennisspieler_id, @teilnehmer_id, @welche_hand);";
             command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
-            command.Parameters.AddWithValue("@tennisspieler_id", id);
-            command.Parameters.AddWithValue("@teilnehmer_id", lastID);
+            command.Parameters.AddWithValue("@tennisspieler_id", tennisspieler_id);
+            command.Parameters.AddWithValue("@teilnehmer_id", last_id_as_int);
             command.Parameters.AddWithValue("@welche_hand", Mitwelcherhand);
 
             try

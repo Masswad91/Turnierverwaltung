@@ -24,7 +24,7 @@ namespace Turnierverwaltung
             Fussstearke = 0;
             Database = new DB();
         }
-        public Fussballspieler(int id, string name, int value) : base(id, name)
+        public Fussballspieler(string name, int value) : base(name)
         {
             Fussstearke = value;
         }
@@ -52,11 +52,13 @@ namespace Turnierverwaltung
                 return;
             }
 
+            int last_id_as_int = Convert.ToInt32(lastID);
+            int fussballspieler_id = rnd.Next(1, 1000000);
 
             Database.Sqlstring = "insert into fussballspieler (fussballspieler_id, teilnehmer_id, fussstearke) values (@fussballspieler_id, @teilnehmer_id, @fussstearke);";
             command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
-            command.Parameters.AddWithValue("@fussballspieler_id", id);
-            command.Parameters.AddWithValue("@teilnehmer_id", lastID);
+            command.Parameters.AddWithValue("@fussballspieler_id", fussballspieler_id);
+            command.Parameters.AddWithValue("@teilnehmer_id", last_id_as_int);
             command.Parameters.AddWithValue("@fussstearke", Fussstearke);
 
             try

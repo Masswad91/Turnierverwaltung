@@ -20,11 +20,13 @@ namespace Turnierverwaltung
         #region Konstruktoren
         public Arzt() : base()
         {
+
+            Database = new DB();
             Bezeichnung = "";
         }
-        public Arzt(int id, string name,  string value) : base(id, name)
+        public Arzt(string name,  string value) : base(name)
         {
-
+            Database = new DB();
             Bezeichnung = value;
         }
         #endregion
@@ -32,13 +34,15 @@ namespace Turnierverwaltung
         #region Worker 
         public override void Insert_into_DB()
         {
+            Database.Connect();
             Random rnd = new Random(DateTime.Now.Ticks.GetHashCode());
-            int id = rnd.Next(1, 1000000);
+            int teilnehmer_id= rnd.Next(1, 1000000);
+
             long lastID;
 
             Database.Sqlstring = "insert into Teilnehmer (teilnehmer_id, name) values (@teilnehmerID, @teilnehmerName);";
             SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
-            command.Parameters.AddWithValue("@teilnehmerID", id);
+            command.Parameters.AddWithValue("@teilnehmerID", teilnehmer_id);
             command.Parameters.AddWithValue("@teilnehmerName", Name);
 
             int anzhal = 0;
@@ -52,11 +56,14 @@ namespace Turnierverwaltung
                 return;
             }
 
+            Console.WriteLine(lastID);
+            int last_id_as_int = Convert.ToInt32(lastID);
 
-            Database.Sqlstring = "insert into fussballspieler (arzt_id, teilnehmer_id, bezeichnung) values (@arzt_id,, @teilnehmer_id, @bezeichnung);";
+            int arzt_id = rnd.Next(1, 1000000);
+            Database.Sqlstring = "insert into Arzt (arzt_id, teilnehmer_id, bezeichnung) values (@arzt_id, @teilnehmer_id, @bezeichnung);";
             command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
-            command.Parameters.AddWithValue("@arzt_id,", id);
-            command.Parameters.AddWithValue("@teilnehmer_id", lastID);
+            command.Parameters.AddWithValue("@arzt_id,", arzt_id);
+            command.Parameters.AddWithValue("@teilnehmer_id", last_id_as_int);
             command.Parameters.AddWithValue("@bezeichnung", Bezeichnung);
 
             try

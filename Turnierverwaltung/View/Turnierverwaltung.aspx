@@ -21,9 +21,36 @@
         </div>
 
         <div>
+            <asp:Button ID="Arzt" runat="server" Text="Arzt" OnClick="Hinzufeugen_Arzt" Visible="false" />
+            <asp:Button ID="Fussballspieler" runat="server" Text="Fussballspieler" OnClick="Hinzufeugen_Fussballspiele" Visible="false" />
+            <asp:Button ID="Handballspieler" runat="server" Text="Handballspieler" OnClick="Hinzufeugen_Handballspieler" Visible="false" />
+            <asp:Button ID="Organisator" runat="server" Text="Organisator" OnClick="Hinzufeugen_Organisator" Visible="false" Style="height: 29px" />
+            <asp:Button ID="Tennisspieler" runat="server" Text="Tennisspieler" OnClick="Hinzufeugen_Tennisspieler" Visible="false" />
+            <br />
+            <br />
             <asp:Label ID="idLabel" runat="server" Text="Name" Visible="false"></asp:Label>
             <br />
             <asp:TextBox ID="Name" runat="server" Visible="false"></asp:TextBox>
+            <br />
+            <asp:Label ID="idLabe2" runat="server" Text="Fussstearke" Visible="false"></asp:Label>
+            <br />
+            <asp:TextBox ID="Fussstearke" runat="server" Visible="false"></asp:TextBox>
+            <br />
+            <asp:Label ID="idLabe3" runat="server" Text="Handstearke" Visible="false"></asp:Label>
+            <br />
+            <asp:TextBox ID="Handstearke" runat="server" Visible="false"></asp:TextBox>
+            <br />
+            <asp:Label ID="idLabe4" runat="server" Text="Rolle" Visible="false"></asp:Label>
+            <br />
+            <asp:TextBox ID="Rolle" runat="server" Visible="false"></asp:TextBox>
+            <br />
+            <asp:Label ID="idLabe5" runat="server" Text="Bezeichnung" Visible="false"></asp:Label>
+            <br />
+            <asp:TextBox ID="Bezeichnung" runat="server" Visible="false"></asp:TextBox>
+            <br />
+            <asp:Label ID="idLabe6" runat="server" Text="Mit_welcher_Hand" Visible="false"></asp:Label>
+            <br />
+            <asp:TextBox ID="Mit_welcher_Hand" runat="server" Visible="false"></asp:TextBox>
             <br />
             <asp:Button ID="Personhinzufeugen" runat="server" Text="Submit" Visible="false" OnClick="Personhinzufeugen_Click" />
             <asp:Button ID="Bearbeitungsbutten" runat="server" Text="Bearbeiten" Visible="false" OnClick="Personbearbeiten_Click" />

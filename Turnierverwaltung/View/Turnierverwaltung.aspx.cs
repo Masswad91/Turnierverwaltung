@@ -27,10 +27,16 @@ namespace Turnierverwaltung.View
 
         protected void Hinzufeugen_Click1(object sender, EventArgs e)
         {
-            Name.Visible = true;
+            Name.Visible = false;
             Personhinzufeugen.Visible = true;
             Bearbeitungsbutten.Visible = false;
-            idLabel.Visible = true;
+            idLabel.Visible = false;
+            Arzt.Visible = true;
+            Fussballspieler.Visible = true;
+            Handballspieler.Visible = true;
+            Organisator.Visible = true;
+            Tennisspieler.Visible = true;
+
         }
 
         public void ZeigeAlleDaten()
@@ -44,11 +50,6 @@ namespace Turnierverwaltung.View
         }
 
 
-        protected void Personhinzufeugen_Click(object sender, EventArgs e)
-        {
-            Verwalter.insert_teilnehmer(Name.Text);
-            Response.Redirect(Request.RawUrl);
-        }
 
         protected void Loeschen_Click(object sender, EventArgs e)
         {
@@ -82,5 +83,79 @@ namespace Turnierverwaltung.View
                 ZeigeAlleDaten();
             }
         }
+
+        protected void Hinzufeugen_Arzt(object sender, EventArgs e)
+        {
+
+            idLabel.Visible = true;
+            Name.Visible = true;
+            idLabe5.Visible = true;
+            Bezeichnung.Visible = true;
+        }
+
+        protected void Hinzufeugen_Fussballspiele(object sender, EventArgs e)
+        {
+            Response.Clear();
+            idLabel.Visible = true;
+            Name.Visible = true;
+            idLabe2.Visible = true;
+            Fussstearke.Visible = true;
+
+        }
+
+        protected void Hinzufeugen_Handballspieler(object sender, EventArgs e)
+        {
+            Response.Clear();
+            idLabel.Visible = true;
+            Name.Visible = true;
+            idLabe3.Visible = true;
+            Handstearke.Visible = true;
+
+
+
+        }
+
+        protected void Hinzufeugen_Organisator(object sender, EventArgs e)
+        {
+            Response.Clear();
+            idLabel.Visible = true;
+            Name.Visible = true;
+            idLabe4.Visible = true;
+            Rolle.Visible = true;
+
+        }
+
+        protected void Hinzufeugen_Tennisspieler(object sender, EventArgs e)
+        {
+            Response.Clear();
+            idLabel.Visible = true;
+            Name.Visible = true;
+            idLabe6.Visible = true;
+            Mit_welcher_Hand.Visible = true;
+
+        }
+
+        protected void Personhinzufeugen_Click(object sender, EventArgs e)
+        {
+            if (Bezeichnung.Text != "")
+            {
+                Verwalter.Teilnehmerliste.Add(new Arzt(Name.Text, Bezeichnung.Text));
+                Verwalter.Datenspeichern();
+            }
+            else if (Fussstearke.Rows != 0)
+            {
+                Verwalter.Teilnehmerliste.Add(new Fussballspieler(Name.Text, Fussstearke.Rows));
+                Verwalter.Datenspeichern();
+
+            }
+            else if (Mit_welcher_Hand.Text != "")
+            {
+                Verwalter.Teilnehmerliste.Add(new Tennisspieler(Name.Text, Mit_welcher_Hand.Text));
+                Verwalter.Datenspeichern();
+            }
+
+        }
+
+
     }
 }
