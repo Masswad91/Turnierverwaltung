@@ -75,6 +75,26 @@ namespace Turnierverwaltung
             Database.Conn.Close();
         }
 
+        public override void Edit_Person(int person_id)
+        {
+            Database.Connect();
+
+            Database.Sqlstring = "update Organisator set teilnehmer_id = (select tl.teilnehmer_id from Teilnehmer tl where Organisator.teilnehmer_id = tl.teilnehmer_id), role = @rolle where orgranisator_id = @orgranisator_id;";
+            SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@rolle", Rolle);
+            command.Parameters.AddWithValue("@orgranisator_id;", person_id);
+
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch
+            {
+                return;
+            }
+            Database.Conn.Close();
+
+        }
         #endregion
     }
 }

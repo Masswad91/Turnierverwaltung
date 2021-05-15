@@ -62,6 +62,7 @@ namespace Turnierverwaltung
             command.Parameters.AddWithValue("@fussballspieler_id", fussballspieler_id);
             command.Parameters.AddWithValue("@teilnehmer_id", last_id_as_int);
             command.Parameters.AddWithValue("@fussstearke", Fussstearke);
+            System.Diagnostics.Debug.WriteLine("eff: " + Fussstearke);
 
             try
             {
@@ -76,6 +77,29 @@ namespace Turnierverwaltung
             Database.Conn.Close();
 
         }
+
+        public override void Edit_Person(int person_id)
+        {
+            Database.Connect();
+
+            Database.Sqlstring = "update Fussballspieler set teilnehmer_id = (select tl.teilnehmer_id from Teilnehmer tl where Fussballspieler.teilnehmer_id = tl.teilnehmer_id), fussstearke = @fussstearke where fussballspieler_id = @fussballspieler_id;";
+            SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@fussstearke", Fussstearke);
+            command.Parameters.AddWithValue("@fussballspieler_id", person_id);
+
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch(Exception err)
+            {
+                System.Diagnostics.Debug.WriteLine("err: " + err);
+                return;
+            }
+            Database.Conn.Close();
+
+        }
+
         #endregion
     }
 }

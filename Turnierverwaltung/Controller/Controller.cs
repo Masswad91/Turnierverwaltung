@@ -32,15 +32,18 @@ namespace Turnierverwaltung
         {
             //Personendaten aus der DB laden
             Database.Connect();
-            Database.Sqlstring = "select * from Teilnehmer";
+            Database.Sqlstring = "select * from Fussballspieler join Teilnehmer using (teilnehmer_id);";
             SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
             SQLiteDataReader reader = null;
             try
             {
                 reader = command.ExecuteReader();
+
+
             }
-            catch
+            catch (Exception err)
             {
+                System.Diagnostics.Debug.WriteLine("err: " + err);
 
             }
 
@@ -65,26 +68,13 @@ namespace Turnierverwaltung
 
             Database.Conn.Close();
         }
-        public void EinenTeilnehmerBearbeiten(int teilnehmer_id, string teilnehmer_name)
+        public void EinenTeilnehmerBearbeiten(int teilnehmer_id)
         {
-            //Personendaten aus der DB laden
-            Database.Connect();
-
-            Database.Sqlstring = "update Teilnehmer set name = @teilnehmer_name where teilnehmer_id = @teilnehmer_id";
-            SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
-            command.Parameters.AddWithValue("@teilnehmer_id", teilnehmer_id);
-            command.Parameters.AddWithValue("@teilnehmer_name", teilnehmer_name);
-
-            try
+            foreach (Teilnehmer obejekt in Teilnehmerliste)
             {
-                command.ExecuteNonQuery();
+             
+                obejekt.Edit_Person(teilnehmer_id);
             }
-            catch
-            {
-                return;
-            }
-
-            Database.Conn.Close();
         }
 
 

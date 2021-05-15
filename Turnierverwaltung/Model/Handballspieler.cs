@@ -75,6 +75,27 @@ namespace Turnierverwaltung
 
             Database.Conn.Close();
         }
+
+        public override void Edit_Person(int person_id)
+        {
+            Database.Connect();
+
+            Database.Sqlstring = "update Handballspieler set teilnehmer_id = (select tl.teilnehmer_id from Teilnehmer tl where Handballspieler.teilnehmer_id = tl.teilnehmer_id), handstearke = @handstearke where handballspieler_id = @handballspieler_id;";
+            SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@handstearke", Handstearke);
+            command.Parameters.AddWithValue("@handballpieler_id", person_id);
+
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch
+            {
+                return;
+            }
+            Database.Conn.Close();
+
+        }
         #endregion
     }
 }

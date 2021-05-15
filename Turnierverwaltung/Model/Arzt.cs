@@ -68,9 +68,7 @@ namespace Turnierverwaltung
 
             try
             {
-
                 command.ExecuteNonQuery();
-
             }
             catch (Exception err)
             {
@@ -79,6 +77,26 @@ namespace Turnierverwaltung
             }
 
             Database.Conn.Close();
+        }
+        public override void Edit_Person(int person_id)
+        {
+            Database.Connect();
+
+            Database.Sqlstring = "update Arzt set teilnehmer_id = (select tl.teilnehmer_id from Teilnehmer tl where Arzt.teilnehmer_id = tl.teilnehmer_id), bezeichnung = @bezeichung where arzt_id = @arzt_id;";
+            SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@bezeichung", Bezeichnung);
+            command.Parameters.AddWithValue("@arzt_id", person_id);
+
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch
+            {
+                return;
+            }
+            Database.Conn.Close();
+
         }
         #endregion
 

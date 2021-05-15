@@ -56,7 +56,7 @@
             <asp:Button ID="Bearbeitungsbutten" runat="server" Text="Bearbeiten" Visible="false" OnClick="Personbearbeiten_Click" />
         </div>
 
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" CellPadding="4">
+        <asp:GridView ID="Fussballspieler_view" runat="server" AutoGenerateColumns="false" CellPadding="4">
             <Columns>
                 <asp:TemplateField>
                     <ItemTemplate>
@@ -65,9 +65,11 @@
                 </asp:TemplateField>
                 <asp:BoundField DataField="teilnehmer_id" HeaderText="ID" />
                 <asp:BoundField DataField="name" HeaderText="Name" />
+                <asp:BoundField DataField="fussstearke" HeaderText="Fussstearke" />
+
             </Columns>
         </asp:GridView>
-
+     
     </form>
 </body>
 </html>

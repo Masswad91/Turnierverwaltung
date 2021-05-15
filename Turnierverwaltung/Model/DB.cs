@@ -42,6 +42,7 @@ namespace Turnierverwaltung
             {
                 Conn.Open();
             }
+
             catch (Exception)
             {
                 return;

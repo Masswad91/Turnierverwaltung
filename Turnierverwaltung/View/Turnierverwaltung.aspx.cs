@@ -18,10 +18,10 @@ namespace Turnierverwaltung.View
         }
         protected void Bearbeiten_Click(object sender, EventArgs e)
         {
-            Name.Visible = true;
+            Fussstearke.Visible = true;
             Bearbeitungsbutten.Visible = true;
             Personhinzufeugen.Visible = false;
-            idLabel.Visible = true;
+            idLabe2.Visible = true;
 
         }
 
@@ -41,8 +41,8 @@ namespace Turnierverwaltung.View
 
         public void ZeigeAlleDaten()
         {
-            GridView1.DataSource = Verwalter.HoleAllePersonen();
-            GridView1.DataBind();
+            Fussballspieler_view.DataSource = Verwalter.HoleAllePersonen();
+            Fussballspieler_view.DataBind();
         }
         protected void Alle_Anzeigen_Click(object sender, EventArgs e)
         {
@@ -53,7 +53,7 @@ namespace Turnierverwaltung.View
 
         protected void Loeschen_Click(object sender, EventArgs e)
         {
-            foreach (GridViewRow row in GridView1.Rows)
+            foreach (GridViewRow row in Fussballspieler_view.Rows)
             {
 
                 CheckBox chkdel = (CheckBox)row.FindControl("check_box");
@@ -70,14 +70,18 @@ namespace Turnierverwaltung.View
 
         protected void Personbearbeiten_Click(object sender, EventArgs e)
         {
-            foreach (GridViewRow row in GridView1.Rows)
+            foreach (GridViewRow row in Fussballspieler_view.Rows)
             {
                 CheckBox chkbearbeiten = (CheckBox)row.FindControl("check_box");
 
                 if (chkbearbeiten.Checked)
                 {
                     int teilnehmerID = Convert.ToInt32(row.Cells[1].Text);
-                    Verwalter.EinenTeilnehmerBearbeiten(teilnehmerID, Name.Text);
+                    int spieler_fussstearke = Convert.ToInt32(Fussstearke.Text);
+                    System.Diagnostics.Debug.WriteLine("sf: " + spieler_fussstearke);
+                    Verwalter.Teilnehmerliste.Add(new Fussballspieler(Name.Text, spieler_fussstearke));
+                    Verwalter.EinenTeilnehmerBearbeiten(teilnehmerID);
+
                 }
 
                 ZeigeAlleDaten();
