@@ -84,16 +84,16 @@ namespace Turnierverwaltung.View
 
         }
 
-        public void ZeigeAlleDaten()
+        /*public void ZeigeAlleDaten()
         {
             Fussballspieler_view.DataSource = Verwalter.HoleAllePersonen();
             Fussballspieler_view.DataBind();
-        }
+        }*/
 
-        protected void Alle_Anzeigen_Click(object sender, EventArgs e)
+        /*protected void Alle_Anzeigen_Click(object sender, EventArgs e)
         {
             ZeigeAlleDaten();
-        }
+        }*/
 
 
 
@@ -112,7 +112,7 @@ namespace Turnierverwaltung.View
                 }
             }
 
-            ZeigeAlleDaten();
+            //ZeigeAlleDaten();
         }
 
         protected void Personbearbeiten_Click(object sender, EventArgs e)
@@ -130,7 +130,7 @@ namespace Turnierverwaltung.View
 
                 }
 
-                ZeigeAlleDaten();
+                //ZeigeAlleDaten();
             }
         }
 

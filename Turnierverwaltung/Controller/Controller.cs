@@ -28,7 +28,7 @@ namespace Turnierverwaltung
         #endregion
         #region Worker
 
-        public SQLiteDataReader HoleAllePersonen()
+        /*public SQLiteDataReader HoleAllePersonen()
         {
             //Personendaten aus der DB laden
             Database.Connect();
@@ -47,7 +47,7 @@ namespace Turnierverwaltung
             }
 
             return reader;
-        }
+        }*/
 
 
         public void EinenTeilnehmerBearbeiten(int teilnehmer_id)
@@ -73,10 +73,6 @@ namespace Turnierverwaltung
             {
                 objekt.Insert_into_DB();
             }
-        }
-        public void Run()
-        {
-
         }
 
         #endregion
