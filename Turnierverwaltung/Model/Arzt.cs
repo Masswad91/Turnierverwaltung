@@ -98,6 +98,10 @@ namespace Turnierverwaltung
             Database.Conn.Close();
 
         }
+        public override void Delete_Person(int person_id)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
 

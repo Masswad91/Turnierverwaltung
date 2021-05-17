@@ -79,10 +79,10 @@ namespace Turnierverwaltung
         {
             Database.Connect();
 
-            Database.Sqlstring = "update Organisator set teilnehmer_id = (select tl.teilnehmer_id from Teilnehmer tl where Organisator.teilnehmer_id = tl.teilnehmer_id), role = @rolle where orgranisator_id = @orgranisator_id;";
+            Database.Sqlstring = "update Organisator set teilnehmer_id = (select tl.teilnehmer_id from Teilnehmer tl where Organisator.teilnehmer_id = tl.teilnehmer_id), role = @rolle where teilnehmer_id = @teilnehmer_id;";
             SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
             command.Parameters.AddWithValue("@rolle", Rolle);
-            command.Parameters.AddWithValue("@orgranisator_id;", person_id);
+            command.Parameters.AddWithValue("@teilnehmer_id;", person_id);
 
             try
             {
@@ -95,6 +95,42 @@ namespace Turnierverwaltung
             Database.Conn.Close();
 
         }
+        public override void Delete_Person(int person_id)
+        {
+            Database.Connect();
+
+
+            Database.Sqlstring = "delete from Organisator where teilnehmer_id = @teilnehmer_id";
+            SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@teilnehmer_id", person_id);
+
+            try
+            {
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception err)
+            {
+                System.Diagnostics.Debug.WriteLine("err: " + err);
+                return;
+            }
+            Database.Sqlstring = "delete from Teilnehmer where teilnehmer_id = @teilnehmer_id";
+            command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@teilnehmer_id", person_id);
+            try
+            {
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception err)
+            {
+                System.Diagnostics.Debug.WriteLine("err: " + err);
+                return;
+            }
+
+            Database.Conn.Close();
+        
+    }
         #endregion
     }
 }

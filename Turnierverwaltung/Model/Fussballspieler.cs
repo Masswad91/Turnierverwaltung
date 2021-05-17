@@ -62,11 +62,11 @@ namespace Turnierverwaltung
             command.Parameters.AddWithValue("@fussballspieler_id", fussballspieler_id);
             command.Parameters.AddWithValue("@teilnehmer_id", last_id_as_int);
             command.Parameters.AddWithValue("@fussstearke", Fussstearke);
-            System.Diagnostics.Debug.WriteLine("eff: " + Fussstearke);
+           
 
             try
             {
-               command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             }
             catch (Exception err)
             {
@@ -82,16 +82,16 @@ namespace Turnierverwaltung
         {
             Database.Connect();
 
-            Database.Sqlstring = "update Fussballspieler set teilnehmer_id = (select tl.teilnehmer_id from Teilnehmer tl where Fussballspieler.teilnehmer_id = tl.teilnehmer_id), fussstearke = @fussstearke where fussballspieler_id = @fussballspieler_id;";
+            Database.Sqlstring = "update Fussballspieler set teilnehmer_id = (select tl.teilnehmer_id from Teilnehmer tl where Fussballspieler.teilnehmer_id = tl.teilnehmer_id), fussstearke = @fussstearke where teilnehmer_id = @teilnehmer_id;";
             SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
             command.Parameters.AddWithValue("@fussstearke", Fussstearke);
-            command.Parameters.AddWithValue("@fussballspieler_id", person_id);
-
+            command.Parameters.AddWithValue("@teilnehmer_id", person_id);
+     
             try
             {
                 command.ExecuteNonQuery();
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 System.Diagnostics.Debug.WriteLine("err: " + err);
                 return;
@@ -99,7 +99,41 @@ namespace Turnierverwaltung
             Database.Conn.Close();
 
         }
+        public override void Delete_Person(int person_id)
+        {
+            Database.Connect();
 
+
+            Database.Sqlstring = "delete from Fussballspieler where teilnehmer_id = @teilnehmer_id";
+            SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@teilnehmer_id", person_id);
+
+            try
+            {
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception err)
+            {
+                System.Diagnostics.Debug.WriteLine("err: " + err);
+                return;
+            }
+            Database.Sqlstring = "delete from Teilnehmer where teilnehmer_id = @teilnehmer_id";
+            command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@teilnehmer_id", person_id);
+            try
+            {
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception err)
+            {
+                System.Diagnostics.Debug.WriteLine("err: " + err);
+                return;
+            }
+
+            Database.Conn.Close();
+        }
         #endregion
     }
 }

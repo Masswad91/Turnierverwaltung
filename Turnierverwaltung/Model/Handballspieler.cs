@@ -80,10 +80,10 @@ namespace Turnierverwaltung
         {
             Database.Connect();
 
-            Database.Sqlstring = "update Handballspieler set teilnehmer_id = (select tl.teilnehmer_id from Teilnehmer tl where Handballspieler.teilnehmer_id = tl.teilnehmer_id), handstearke = @handstearke where handballspieler_id = @handballspieler_id;";
+            Database.Sqlstring = "update Handballspieler set teilnehmer_id = (select tl.teilnehmer_id from Teilnehmer tl where Handballspieler.teilnehmer_id = tl.teilnehmer_id), handstearke = @handstearke join Teilnhemer using (teilnehmer_id) where teilnehmer_id = @hteilnehmer_id;";
             SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
             command.Parameters.AddWithValue("@handstearke", Handstearke);
-            command.Parameters.AddWithValue("@handballpieler_id", person_id);
+            command.Parameters.AddWithValue("@teilnehmer_id", person_id);
 
             try
             {
@@ -96,6 +96,42 @@ namespace Turnierverwaltung
             Database.Conn.Close();
 
         }
-        #endregion
+        public override void Delete_Person(int person_id)
+        {
+            Database.Connect();
+
+
+            Database.Sqlstring = "delete from Handballspieler where teilnehmer_id = @teilnehmer_id";
+            SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@teilnehmer_id", person_id);
+
+            try
+            {
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception err)
+            {
+                System.Diagnostics.Debug.WriteLine("err: " + err);
+                return;
+            }
+            Database.Sqlstring = "delete from Teilnehmer where teilnehmer_id = @teilnehmer_id";
+            command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@teilnehmer_id", person_id);
+            try
+            {
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception err)
+            {
+                System.Diagnostics.Debug.WriteLine("err: " + err);
+                return;
+            }
+
+            Database.Conn.Close();
+        }
     }
+    #endregion
+
 }

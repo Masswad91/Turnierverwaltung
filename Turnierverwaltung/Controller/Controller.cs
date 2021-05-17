@@ -39,7 +39,6 @@ namespace Turnierverwaltung
             {
                 reader = command.ExecuteReader();
 
-
             }
             catch (Exception err)
             {
@@ -50,30 +49,20 @@ namespace Turnierverwaltung
             return reader;
         }
 
-        public void EinenTeilnehmerloeschen(int teilnehmer_id)
-        {
-            //Personendaten aus der DB laden
-            Database.Connect();
-            Database.Sqlstring = "delete from Teilnehmer where teilnehmer_id = @id;";
-            SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
-            command.Parameters.AddWithValue("@id", teilnehmer_id);
-            try
-            {
-                command.ExecuteNonQuery();
-            }
-            catch
-            {
-                return;
-            }
 
-            Database.Conn.Close();
-        }
         public void EinenTeilnehmerBearbeiten(int teilnehmer_id)
         {
             foreach (Teilnehmer obejekt in Teilnehmerliste)
             {
              
                 obejekt.Edit_Person(teilnehmer_id);
+            }
+        }
+        public void EinenTeilnehmerLoechen(int teilnehmer_id)
+        {
+            foreach (Teilnehmer obejekt in Teilnehmerliste)
+            {
+                obejekt.Delete_Person(teilnehmer_id);
             }
         }
 

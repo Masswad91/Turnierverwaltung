@@ -18,10 +18,14 @@ namespace Turnierverwaltung.View
         }
         protected void Bearbeiten_Click(object sender, EventArgs e)
         {
-            Fussstearke.Visible = true;
-            Bearbeitungsbutten.Visible = true;
-            Personhinzufeugen.Visible = false;
-            idLabe2.Visible = true;
+            Name.Visible = false;
+            Bearbeitungsbutten.Visible = false;
+            idLabel.Visible = false;
+            Arzt.Visible = true;
+            Fussballspieler.Visible = true;
+            Handballspieler.Visible = true;
+            Organisator.Visible = true;
+            Tennisspieler.Visible = true;
 
         }
 
@@ -38,56 +42,6 @@ namespace Turnierverwaltung.View
             Tennisspieler.Visible = true;
 
         }
-
-        public void ZeigeAlleDaten()
-        {
-            Fussballspieler_view.DataSource = Verwalter.HoleAllePersonen();
-            Fussballspieler_view.DataBind();
-        }
-        protected void Alle_Anzeigen_Click(object sender, EventArgs e)
-        {
-            ZeigeAlleDaten();
-        }
-
-
-
-        protected void Loeschen_Click(object sender, EventArgs e)
-        {
-            foreach (GridViewRow row in Fussballspieler_view.Rows)
-            {
-
-                CheckBox chkdel = (CheckBox)row.FindControl("check_box");
-
-                if (chkdel.Checked)
-                {
-                    int teilnehmerID = Convert.ToInt32(row.Cells[1].Text);
-                    Verwalter.EinenTeilnehmerloeschen(teilnehmerID);
-                }
-            }
-
-            ZeigeAlleDaten();
-        }
-
-        protected void Personbearbeiten_Click(object sender, EventArgs e)
-        {
-            foreach (GridViewRow row in Fussballspieler_view.Rows)
-            {
-                CheckBox chkbearbeiten = (CheckBox)row.FindControl("check_box");
-
-                if (chkbearbeiten.Checked)
-                {
-                    int teilnehmerID = Convert.ToInt32(row.Cells[1].Text);
-                    int spieler_fussstearke = Convert.ToInt32(Fussstearke.Text);
-                    System.Diagnostics.Debug.WriteLine("sf: " + spieler_fussstearke);
-                    Verwalter.Teilnehmerliste.Add(new Fussballspieler(Name.Text, spieler_fussstearke));
-                    Verwalter.EinenTeilnehmerBearbeiten(teilnehmerID);
-
-                }
-
-                ZeigeAlleDaten();
-            }
-        }
-
         protected void Hinzufeugen_Arzt(object sender, EventArgs e)
         {
             idLabel.Visible = true;
@@ -130,6 +84,58 @@ namespace Turnierverwaltung.View
 
         }
 
+        public void ZeigeAlleDaten()
+        {
+            Fussballspieler_view.DataSource = Verwalter.HoleAllePersonen();
+            Fussballspieler_view.DataBind();
+        }
+
+        protected void Alle_Anzeigen_Click(object sender, EventArgs e)
+        {
+            ZeigeAlleDaten();
+        }
+
+
+
+        protected void Loeschen_Click(object sender, EventArgs e)
+        {
+            foreach (GridViewRow row in Fussballspieler_view.Rows)
+            {
+
+                CheckBox chkdel = (CheckBox)row.FindControl("check_box");
+
+                if (chkdel.Checked)
+                {
+                    int teilnehmerID = Convert.ToInt32(row.Cells[1].Text);
+                    Verwalter.Teilnehmerliste.Add(new Fussballspieler());
+                    Verwalter.EinenTeilnehmerLoechen(teilnehmerID);
+                }
+            }
+
+            ZeigeAlleDaten();
+        }
+
+        protected void Personbearbeiten_Click(object sender, EventArgs e)
+        {
+            foreach (GridViewRow row in Fussballspieler_view.Rows)
+            {
+                CheckBox chkbearbeiten = (CheckBox)row.FindControl("check_box");
+
+                if (chkbearbeiten.Checked)
+                {
+                    int teilnehmerID = Convert.ToInt32(row.Cells[1].Text);
+                    int spieler_fussstearke = Convert.ToInt32(Fussstearke.Text);
+                    Verwalter.Teilnehmerliste.Add(new Fussballspieler("", spieler_fussstearke));
+                    Verwalter.EinenTeilnehmerBearbeiten(teilnehmerID);
+
+                }
+
+                ZeigeAlleDaten();
+            }
+        }
+
+
+
         protected void Personhinzufeugen_Click(object sender, EventArgs e)
         {
 
@@ -168,7 +174,6 @@ namespace Turnierverwaltung.View
             }
 
         }
-
 
     }
 }
