@@ -56,7 +56,7 @@ namespace Turnierverwaltung
            
             int last_id_as_int = Convert.ToInt32(lastID);
             int organisator_id = rnd.Next(1, 1000000);
-            Database.Sqlstring = "insert into Organisator (orgranisator_id, role,  teilnehmer_id) values (@organisator_id, @rolle, @teilnehmer_id);";
+            Database.Sqlstring = "insert into Organisator (organisator_id, rolle,  teilnehmer_id) values (@organisator_id, @rolle, @teilnehmer_id);";
             command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
             command.Parameters.AddWithValue("@organisator_id", organisator_id);
             command.Parameters.AddWithValue("@teilnehmer_id", last_id_as_int);
@@ -92,6 +92,7 @@ namespace Turnierverwaltung
             {
                 return;
             }
+
             Database.Conn.Close();
 
         }

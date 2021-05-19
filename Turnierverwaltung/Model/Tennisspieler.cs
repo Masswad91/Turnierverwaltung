@@ -48,10 +48,10 @@ namespace Turnierverwaltung
             command.Parameters.AddWithValue("@teilnehmerID", id);
             command.Parameters.AddWithValue("@teilnehmerName", Name);
 
-            int anzhal = 0;
+       
             try
             {
-                anzhal = command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
                 lastID = Database.Conn.LastInsertRowId;
             }
             catch (Exception)

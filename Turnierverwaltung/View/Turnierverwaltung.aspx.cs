@@ -84,22 +84,21 @@ namespace Turnierverwaltung.View
 
         }
 
-        /*public void ZeigeAlleDaten()
+        public void ZeigeAlleDaten()
         {
-            Fussballspieler_view.DataSource = Verwalter.HoleAllePersonen();
-            Fussballspieler_view.DataBind();
-        }*/
+            Teilnehmer_view.DataSource = Verwalter.HoleAllePersonen();
+            Teilnehmer_view.DataBind();
+        }
 
-        /*protected void Alle_Anzeigen_Click(object sender, EventArgs e)
+        protected void Alle_Anzeigen_Click(object sender, EventArgs e)
         {
             ZeigeAlleDaten();
-        }*/
-
+        }
 
 
         protected void Loeschen_Click(object sender, EventArgs e)
         {
-            foreach (GridViewRow row in Fussballspieler_view.Rows)
+            foreach (GridViewRow row in Teilnehmer_view.Rows)
             {
 
                 CheckBox chkdel = (CheckBox)row.FindControl("check_box");
@@ -112,12 +111,12 @@ namespace Turnierverwaltung.View
                 }
             }
 
-            //ZeigeAlleDaten();
+            ZeigeAlleDaten();
         }
 
         protected void Personbearbeiten_Click(object sender, EventArgs e)
         {
-            foreach (GridViewRow row in Fussballspieler_view.Rows)
+            foreach (GridViewRow row in Teilnehmer_view.Rows)
             {
                 CheckBox chkbearbeiten = (CheckBox)row.FindControl("check_box");
 
@@ -127,14 +126,11 @@ namespace Turnierverwaltung.View
                     int spieler_fussstearke = Convert.ToInt32(Fussstearke.Text);
                     Verwalter.Teilnehmerliste.Add(new Fussballspieler("", spieler_fussstearke));
                     Verwalter.EinenTeilnehmerBearbeiten(teilnehmerID);
-
                 }
 
-                //ZeigeAlleDaten();
+                ZeigeAlleDaten();
             }
         }
-
-
 
         protected void Personhinzufeugen_Click(object sender, EventArgs e)
         {
@@ -142,34 +138,38 @@ namespace Turnierverwaltung.View
             if (Bezeichnung.Text != "")
             {
                 Verwalter.Teilnehmerliste.Add(new Arzt(Name.Text, Bezeichnung.Text));
-                Verwalter.Datenspeichern();
+                Verwalter.EinenTeilnehmerHinzufuegen();
                 Response.Redirect(Request.RawUrl);
             }
             else if (Fussstearke.Text != "")
             {
                 int spieler_fussstearke = Convert.ToInt32(Fussstearke.Text);
                 Verwalter.Teilnehmerliste.Add(new Fussballspieler(Name.Text, spieler_fussstearke));
-                Verwalter.Datenspeichern();
+                Verwalter.EinenTeilnehmerHinzufuegen();
                 Response.Redirect(Request.RawUrl);
 
             }
             else if (Mit_welcher_Hand.Text != "")
             {
                 Verwalter.Teilnehmerliste.Add(new Tennisspieler(Name.Text, Mit_welcher_Hand.Text));
-                Verwalter.Datenspeichern();
+                Verwalter.EinenTeilnehmerHinzufuegen();
                 Response.Redirect(Request.RawUrl);
             }
             else if (Handstearke.Text != "")
             {
                 int spieler_handtearke = Convert.ToInt32(Handstearke.Text);
                 Verwalter.Teilnehmerliste.Add(new Handballspieler(Name.Text, spieler_handtearke));
-                Verwalter.Datenspeichern();
+                Verwalter.EinenTeilnehmerHinzufuegen();
                 Response.Redirect(Request.RawUrl);
             }
             else if (Rolle.Text != "")
             {
                 Verwalter.Teilnehmerliste.Add(new Organisator(Name.Text, Rolle.Text));
-                Verwalter.Datenspeichern();
+                Verwalter.EinenTeilnehmerHinzufuegen();
+                Response.Redirect(Request.RawUrl);
+            }
+            else
+            {
                 Response.Redirect(Request.RawUrl);
             }
 

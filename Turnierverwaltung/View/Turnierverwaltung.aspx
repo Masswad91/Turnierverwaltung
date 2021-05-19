@@ -55,21 +55,17 @@
             <asp:Button ID="Personhinzufeugen" runat="server" Text="Submit" Visible="false" OnClick="Personhinzufeugen_Click" />
             <asp:Button ID="Bearbeitungsbutten" runat="server" Text="Bearbeiten" Visible="false" OnClick="Personbearbeiten_Click" />
         </div>
-
-        <asp:GridView ID="Fussballspieler_view" runat="server" AutoGenerateColumns="false" CellPadding="4">
+        <asp:GridView ID="Teilnehmer_view" runat="server" AutoGenerateColumns="false" CellPadding="6">
             <Columns>
                 <asp:TemplateField>
                     <ItemTemplate>
                         <asp:CheckBox ID="check_box" runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:BoundField DataField="teilnehmer_id" HeaderText="ID" />
+                <asp:BoundField DataField="teilnehmer_id" HeaderText="Teilnehmer_ID" />
                 <asp:BoundField DataField="name" HeaderText="Name" />
-                <asp:BoundField DataField="fussstearke" HeaderText="Fussstearke" />
-
             </Columns>
         </asp:GridView>
-     
     </form>
 </body>
 </html>

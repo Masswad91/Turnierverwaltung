@@ -20,35 +20,32 @@ namespace Turnierverwaltung
         #region Konstruktoren
         public Controller()
         {
-
             Database = new DB();
             Teilnehmerliste = new List<Teilnehmer>();
-
         }
         #endregion
         #region Worker
 
-        /*public SQLiteDataReader HoleAllePersonen()
+        public SQLiteDataReader HoleAllePersonen()
         {
             //Personendaten aus der DB laden
             Database.Connect();
-            Database.Sqlstring = "select * from Fussballspieler join Teilnehmer using (teilnehmer_id);";
+            Database.Sqlstring = "select * from Teilnehmer";
             SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
             SQLiteDataReader reader = null;
+
             try
             {
                 reader = command.ExecuteReader();
 
             }
-            catch (Exception err)
+            catch(Exception err)
             {
                 System.Diagnostics.Debug.WriteLine("err: " + err);
-
             }
-
+           
             return reader;
-        }*/
-
+        }
 
         public void EinenTeilnehmerBearbeiten(int teilnehmer_id)
         {
@@ -66,8 +63,7 @@ namespace Turnierverwaltung
             }
         }
 
-
-        public void Datenspeichern()
+        public void EinenTeilnehmerHinzufuegen()
         {
             foreach (Teilnehmer objekt in Teilnehmerliste)
             {

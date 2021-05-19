@@ -183,6 +183,7 @@
     <Compile Include="Model\DB.cs" />
     <Compile Include="Model\Fussballspieler.cs" />
     <Compile Include="Model\Handballspieler.cs" />
+    <Compile Include="Model\Mannschaft.cs" />
     <Compile Include="Model\Organisator.cs" />
     <Compile Include="Model\Teilnehmer.cs" />
     <Compile Include="Model\Tennisspieler.cs" />

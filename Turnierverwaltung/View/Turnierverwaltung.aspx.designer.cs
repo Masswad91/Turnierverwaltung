@@ -231,12 +231,12 @@ namespace Turnierverwaltung.View
         protected global::System.Web.UI.WebControls.Button Bearbeitungsbutten;
 
         /// <summary>
-        /// Fussballspieler_view-Steuerelement
+        /// Teilnehmer_view-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView Fussballspieler_view;
+        protected global::System.Web.UI.WebControls.GridView Teilnehmer_view;
     }
 }

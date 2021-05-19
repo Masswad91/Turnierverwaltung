@@ -10,8 +10,6 @@ namespace Turnierverwaltung
         #region Eigenschaften
         private string _name;
 
-
-
         #endregion
         #region Accesssoren
         public string Name { get => _name; set => _name = value; }

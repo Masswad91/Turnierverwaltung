@@ -30,6 +30,7 @@ namespace Turnierverwaltung
             Fussstearke = value;
         }
         #endregion
+
         #region Worker 
         public override void Insert_into_DB()
         {
@@ -63,7 +64,6 @@ namespace Turnierverwaltung
             command.Parameters.AddWithValue("@teilnehmer_id", last_id_as_int);
             command.Parameters.AddWithValue("@fussstearke", Fussstearke);
            
-
             try
             {
                 command.ExecuteNonQuery();
@@ -75,7 +75,6 @@ namespace Turnierverwaltung
             }
 
             Database.Conn.Close();
-
         }
 
         public override void Edit_Person(int person_id)
@@ -96,14 +95,13 @@ namespace Turnierverwaltung
                 System.Diagnostics.Debug.WriteLine("err: " + err);
                 return;
             }
+
             Database.Conn.Close();
 
         }
         public override void Delete_Person(int person_id)
         {
             Database.Connect();
-
-
             Database.Sqlstring = "delete from Fussballspieler where teilnehmer_id = @teilnehmer_id";
             SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
             command.Parameters.AddWithValue("@teilnehmer_id", person_id);

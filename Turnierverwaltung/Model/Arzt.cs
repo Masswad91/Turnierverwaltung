@@ -100,10 +100,40 @@ namespace Turnierverwaltung
         }
         public override void Delete_Person(int person_id)
         {
-            throw new NotImplementedException();
+            Database.Connect();
+            Database.Sqlstring = "delete from Arzt where teilnehmer_id = @teilnehmer_id";
+            SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@teilnehmer_id", person_id);
+
+            try
+            {
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception err)
+            {
+                System.Diagnostics.Debug.WriteLine("err: " + err);
+                return;
+            }
+            Database.Sqlstring = "delete from Teilnehmer where teilnehmer_id = @teilnehmer_id";
+            command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
+            command.Parameters.AddWithValue("@teilnehmer_id", person_id);
+            try
+            {
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception err)
+            {
+                System.Diagnostics.Debug.WriteLine("err: " + err);
+                return;
+            }
+
+            Database.Conn.Close();
         }
-        #endregion
-
-
     }
+    #endregion
 }
+
+
+
