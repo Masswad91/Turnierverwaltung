@@ -39,16 +39,12 @@ namespace Turnierverwaltung
         public override void Insert_into_DB()
         {
             Database.Connect();
-            Random rnd = new Random(DateTime.Now.Ticks.GetHashCode());
-            int id = rnd.Next(1, 1000000);
             long lastID;
 
-            Database.Sqlstring = "insert into Teilnehmer (teilnehmer_id, name) values (@teilnehmerID, @teilnehmerName);";
+            Database.Sqlstring = "insert into Teilnehmer (name) values (@teilnehmerName);";
             SQLiteCommand command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
-            command.Parameters.AddWithValue("@teilnehmerID", id);
             command.Parameters.AddWithValue("@teilnehmerName", Name);
 
-       
             try
             {
                 command.ExecuteNonQuery();
@@ -60,10 +56,8 @@ namespace Turnierverwaltung
             }
 
             int last_id_as_int = Convert.ToInt32(lastID);
-            int tennisspieler_id = rnd.Next(1, 1000000);
-            Database.Sqlstring = "insert into Tennisspieler (tennisspieler_id, teilnehmer_id, welche_hand) values (@tennisspieler_id, @teilnehmer_id, @welche_hand);";
+            Database.Sqlstring = "insert into Tennisspieler (teilnehmer_id, welche_hand) values (@teilnehmer_id, @welche_hand);";
             command = new SQLiteCommand(Database.Sqlstring, Database.Conn);
-            command.Parameters.AddWithValue("@tennisspieler_id", tennisspieler_id);
             command.Parameters.AddWithValue("@teilnehmer_id", last_id_as_int);
             command.Parameters.AddWithValue("@welche_hand", Mitwelcherhand);
 

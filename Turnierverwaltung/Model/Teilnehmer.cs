@@ -9,6 +9,7 @@ namespace Turnierverwaltung
     {
         #region Eigenschaften
         private string _name;
+     
 
         #endregion
         #region Accesssoren
